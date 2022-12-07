@@ -4,18 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.artspaceapp.ui.theme.ArtSpaceAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,8 +28,9 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = Color.White
                 ) {
+                    ImageAndText()
 
                 }
             }
@@ -36,11 +39,13 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 fun ImageAndText() {
-    Column {
-        Image(painter = , contentDescription = )
-        Spacer(modifier = )
+    Column(
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(painter = painterResource(id = R.drawable.close_up_beef_hamberger_wooden_plate_174264764), contentDescription = null)
+        Spacer(modifier = Modifier.height(20.dp) )
         ArtworkDescription()
-        Spacer(modifier = )
+        Spacer(modifier = Modifier.height(20.dp))
         PreviousAndNextButton()
 
 
@@ -49,8 +54,8 @@ fun ImageAndText() {
 @Composable
 fun ArtworkDescription() {
     Column() {
-        Text(text = )
-        Text(text = )
+        Text(text = "ksdng")
+        Text(text = "kasjgn")
         
     }
 }
@@ -59,7 +64,11 @@ fun PreviousAndNextButton() {
     Row() {
         Button(onClick = { /*TODO*/ }) {
             Text(text = stringResource(id = R.string.previous_button) )
+
+        }
+        Button(onClick = { /*TODO*/ }) {
             Text(text = stringResource(id = R.string.next_button))
+
         }
         
     }
