@@ -1,5 +1,6 @@
 package com.example.artspaceapp
 
+import android.graphics.drawable.RotateDrawable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color.White
                 ) {
-                    ArtSpaceApp()
+                    ArtSpaceAlbum()
 
                 }
             }
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 @Composable
-fun ArtSpaceApp() {
+fun ArtSpaceAlbum() {
     var currentArtwork by remember { mutableStateOf(1) }
 
 
@@ -112,7 +113,9 @@ fun ImageAndText(
     artworkImage: Int,
     artworkImageDescription: Int,
     artworkName: Int,
-    artworkArtistAndYear: Int
+    artworkArtistAndYear: Int,
+    onNextClick: () -> Unit,
+    onPreviousClick: () -> Unit
     ) {
     Column(modifier = Modifier.padding(start = 20.dp, end = 20.dp),
     verticalArrangement = Arrangement.Center,
@@ -121,7 +124,7 @@ fun ImageAndText(
         Spacer(modifier = Modifier.height(20.dp) )
         ArtworkDescription(artwork = artworkName, artistAndYear = artworkArtistAndYear)
         Spacer(modifier = Modifier.height(20.dp))
-        PreviousAndNextButton()
+        PreviousAndNextButton(onNextClick = onNextClick, onPreviousClick = onPreviousClick)
     }
 
 }
@@ -134,6 +137,7 @@ fun ArtworkWall(image: Int, contentDescription: Int) {
             painter = painterResource(id = image),
             contentDescription = stringResource(id = contentDescription))
     }
+
 }
 @Composable
 fun ArtworkDescription(artwork: Int, artistAndYear: Int) {
@@ -146,19 +150,20 @@ fun ArtworkDescription(artwork: Int, artistAndYear: Int) {
 
 }
 @Composable 
-fun PreviousAndNextButton() {
+fun PreviousAndNextButton(onPreviousClick: () -> Unit, onNextClick: () -> Unit) {
     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
         Button(modifier = Modifier.padding(start = 10.dp),
             contentPadding = PaddingValues(start = 40.dp, end = 40.dp),
-            onClick = { /*TODO*/ }) {
+            onClick = onPreviousClick
+        ) {
             Text(text = stringResource(id = R.string.previous_button) )
 
         }
         Button(modifier = Modifier.padding(end = 10.dp),
             contentPadding = PaddingValues(start = 50.dp, end = 50.dp),
-            onClick = { /*TODO*/ }) {
+            onClick = onNextClick
+        ) {
             Text(text = stringResource(id = R.string.next_button))
-
         }
         
     }
