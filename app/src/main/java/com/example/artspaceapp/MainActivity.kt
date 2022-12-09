@@ -48,59 +48,44 @@ fun ArtSpaceAlbum() {
 
     when (currentArtwork) {
             1 -> {
-
                 ImageAndText(
-                    textLabelResourceId = R.string.lemon_select,
-                    drawableResourceId = R.drawable.lemon_tree,
-                    contentDescriptionResourceId = R.string.lemon_tree_content_description,
-                    onImageClick = {
-                        // Update to next step
-                        currentStep = 2
-                        // Each time a lemon is picked from the tree, get a new random number
-                        // between 2 and 4 (inclusive) for the number of times the lemon needs
-                        // to be squeezed to turn into lemonade
-                        squeezeCount = (2..4).random()
-                    }
+                    artworkImage = R.drawable.young_darren_in_cage,
+                    artworkName = R.string.young_darren,
+                    artworkArtistAndYear = R.string.artist_name_and_year,
+                    artworkImageContentDescription = null,
+                    onPreviousClick = {currentArtwork = 4},
+                    onNextClick = {currentArtwork = 2},
                 )
             }
             2 -> {
-                // Display lemon image and ask user to squeeze the lemon
+
                 ImageAndText(
-                    textLabelResourceId = R.string.lemon_squeeze,
-                    drawableResourceId = R.drawable.lemon_squeeze,
-                    contentDescriptionResourceId = R.string.lemon_content_description,
-                    onImageClick = {
-                        // Decrease the squeeze count by 1 for each click the user performs
-                        squeezeCount--
-                        // When we're done squeezing the lemon, move to the next step
-                        if (squeezeCount == 0) {
-                            currentStep = 3
-                        }
-                    }
+                    artworkImage = R.drawable.darren_chewing_calculus_notes,
+                    artworkName = R.string.darren_chewing_notes,
+                    artworkArtistAndYear = R.string.artist_name_and_year,
+                    artworkImageContentDescription = null,
+                    onPreviousClick = {currentArtwork = 1},
+                    onNextClick = {currentArtwork = 3},
                 )
             }
             3 -> {
-                // Display glass of lemonade image and ask user to drink the lemonade
                 ImageAndText(
-                    textLabelResourceId = R.string.lemon_drink,
-                    drawableResourceId = R.drawable.lemon_drink,
-                    contentDescriptionResourceId = R.string.lemonade_content_description,
-                    onImageClick = {
-                        // Update to next step
-                        currentStep = 4
-                    }
+                    artworkImage = R.drawable.darren_on_glasses,
+                    artworkName = R.string.darren_on_glasses,
+                    artworkArtistAndYear = R.string.artist_name_and_year,
+                    artworkImageContentDescription = null,
+                    onPreviousClick = {currentArtwork = 2},
+                    onNextClick = {currentArtwork = 4},
                 )
             }
             4 -> {
-                // Display empty glass image and ask user to start again
                 ImageAndText(
-                    textLabelResourceId = R.string.lemon_empty_glass,
-                    drawableResourceId = R.drawable.lemon_restart,
-                    contentDescriptionResourceId = R.string.empty_glass_content_description,
-                    onImageClick = {
-                        // Back to starting step
-                        currentStep = 1
-                    }
+                    artworkImage = R.drawable.darren_on_knee,
+                    artworkName = R.string.darren_on_knee,
+                    artworkArtistAndYear = R.string.artist_name_and_year,
+                    artworkImageContentDescription = null,
+                    onPreviousClick = {currentArtwork = 3},
+                    onNextClick = {currentArtwork = 1},
                 )
             }
         }
@@ -111,7 +96,7 @@ fun ArtSpaceAlbum() {
 @Composable
 fun ImageAndText(
     artworkImage: Int,
-    artworkImageDescription: Int,
+    artworkImageContentDescription: String?,
     artworkName: Int,
     artworkArtistAndYear: Int,
     onNextClick: () -> Unit,
@@ -120,9 +105,9 @@ fun ImageAndText(
     Column(modifier = Modifier.padding(start = 20.dp, end = 20.dp),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally) {
-        ArtworkWall(image = artworkImage, contentDescription = artworkImageDescription)
+        ArtworkWall(image = artworkImage, contentDescription = artworkImageContentDescription)
         Spacer(modifier = Modifier.height(20.dp) )
-        ArtworkDescription(artwork = artworkName, artistAndYear = artworkArtistAndYear)
+        ArtworkDescription(artworkName = artworkName, artistAndYear = artworkArtistAndYear)
         Spacer(modifier = Modifier.height(20.dp))
         PreviousAndNextButton(onNextClick = onNextClick, onPreviousClick = onPreviousClick)
     }
@@ -130,20 +115,20 @@ fun ImageAndText(
 }
 
 @Composable
-fun ArtworkWall(image: Int, contentDescription: Int) {
+fun ArtworkWall(image: Int, contentDescription: String?) {
     Surface(modifier = Modifier.fillMaxWidth(), color = Color.White, elevation = 10.dp, border = BorderStroke(2.dp, Color.LightGray)
         ) {
         Image(modifier = Modifier.padding(30.dp),
             painter = painterResource(id = image),
-            contentDescription = stringResource(id = contentDescription))
+            contentDescription = contentDescription)
     }
 
 }
 @Composable
-fun ArtworkDescription(artwork: Int, artistAndYear: Int) {
+fun ArtworkDescription(artworkName: Int, artistAndYear: Int) {
     Surface(elevation = 5.dp, color = Color.White) {
         Column() {
-            Text(text = stringResource(id = artwork))
+            Text(text = stringResource(id = artworkName))
             Text(text = stringResource(id = artistAndYear))
         }
     }

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Art Space App</string>
     <string name="previous_button">Previous</string>
+    <string name="young_darren">Young Darren</string>
+    <string name="darren_chewing_notes">Darren Chewing Calculus Notes</string>
+    <string name="darren_on_glasses">Darren On Glasses</string>
+    <string name="darren_on_knee">Darren On Knee</string>
+    <string name="artist_name_and_year">Kristian Loeffler (2013)</string>
     <string name="next_button">Next</string>
 </resources>
